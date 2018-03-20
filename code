@@ -1,0 +1,20 @@
+import numpy as np 
+import pandas as pd
+from sklearn.linear_model import LogisticRegression
+from sklearn import preprocessing,cross_validation
+import matplotlib.pyplot as plt
+from sklearn.neighbors import KNeighborsClassifier
+x=pd.read_csv('/Users/xor/Downloads/Criminal_train.csv')
+x1=pd.read_csv('/Users/xor/Downloads/criminal_test.csv')
+y=x['Criminal']
+x.drop('Criminal',axis=1,inplace=True)
+lr=LogisticRegression()
+lr.fit(x,y)
+ans=lr.predict(x1)
+n= KNeighborsClassifier(n_neighbors=3)
+n.fit(x,y)
+ans1=n.predict(x1) 
+d=pd.DataFrame(data=ans1,columns=["criminal"])
+d.to_csv('nc1.csv')
+t=sum(d['criminal'])
+pq=sum(ans1)
